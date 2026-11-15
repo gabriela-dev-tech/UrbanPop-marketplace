@@ -1,0 +1,138 @@
+.cart-page {
+  width: min(900px, 100%);
+  min-height: 50vh;
+  margin: 28px auto;
+  padding: 28px;
+  color: #e2f7e8;
+  text-align: left;
+  background: #2f4b37;
+}
+
+.cart-page > h1 {
+  margin: 0 0 24px;
+  color: #c5f3d7;
+  font-family: "Pirata One", Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.cart-items {
+  display: grid;
+  gap: 12px;
+}
+
+.cart-row {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) 105px 100px;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  color: #101510;
+  background: #d7e4d3;
+}
+
+.cart-row > img {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+  background: #fff;
+}
+
+.cart-item-info h2 {
+  margin: 0 0 4px;
+  color: #101510;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.cart-item-info p {
+  margin: 0 0 8px;
+}
+
+.cart-remove {
+  padding: 0;
+  border: 0;
+  color: #234b36;
+  background: transparent;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cart-quantity {
+  display: grid;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+
+.cart-quantity input {
+  width: 74px;
+  padding: 6px;
+  border: 1px solid #637866;
+  color: #101510;
+  background: #fff;
+  font: inherit;
+}
+.cart-line-total {
+  text-align: right;
+}
+
+.cart-summary {
+  display: grid;
+  justify-items: end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #c5f3d7;
+}
+
+.cart-summary > p {
+  display: flex;
+  width: min(280px, 100%);
+  justify-content: space-between;
+  font-size: 1.1rem;
+}
+
+.cart-summary small {
+  text-align: right;
+}
+
+.cart-empty {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+}
+
+.cart-continue {
+  display: inline-block;
+  padding: 10px 16px;
+  color: #142218;
+  background: #c5f3d7;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .cart-page {
+    margin: 16px auto;
+    padding: 18px 14px;
+  }
+
+  .cart-row {
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+
+  .cart-row > img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .cart-quantity {
+    grid-column: 2;
+  }
+
+  .cart-line-total {
+    grid-column: 3;
+    grid-row: 2;
+  }
+}

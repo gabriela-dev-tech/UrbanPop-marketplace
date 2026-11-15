@@ -1,0 +1,45 @@
+.artists {
+  margin: 0;
+  padding: 12px;
+  display: block;
+  background: #2f4b37;
+  color: #e2f7e8;
+}
+
+.artists h2 {
+  margin: 0 0 6px;
+  font-family: Arial, sans-serif;
+  font-size: 1.1rem;
+}
+
+.artists > p {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.artist-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.artist-card {
+  padding: 6px 8px;
+  background: #c4d3c0;
+  color: #101510;
+}
+
+.artist-card h3,
+.artist-card p {
+  margin: 0;
+  font-size: 0.75rem;
+}
+.artist-apply-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #c5f3d7;
+  color: #101510;
+  font-weight: 700;
+}

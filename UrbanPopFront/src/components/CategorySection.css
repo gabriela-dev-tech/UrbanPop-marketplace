@@ -1,0 +1,26 @@
+.categories {
+  padding: 24px;
+  background: #2f4b37;
+}
+
+.categories h2 {
+  margin: 0 0 16px;
+  font-family: Arial, sans-serif;
+  font-size: 1.25rem;
+}
+
+.category-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.category-list a {
+  padding: 10px 6px;
+  background: #d7e4d3;
+  color: #101510;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}

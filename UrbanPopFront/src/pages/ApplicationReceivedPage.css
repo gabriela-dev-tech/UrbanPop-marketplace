@@ -1,0 +1,72 @@
+.application-received-layout {
+  margin: 28px auto;
+  display: grid;
+  grid-template-columns: 0.65fr 1.35fr;
+  align-items: center;
+  gap: 24px;
+}
+
+.application-received-layout .artist-brand {
+  color: #c5f3d7;
+  text-align: center;
+}
+
+.application-received-layout .artist-brand img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+}
+
+.application-received-layout .artist-brand h2 {
+  margin: 12px 0 0;
+  font-family: "Pirata One", serif;
+  font-size: 3rem;
+}
+
+.application-received-panel {
+  min-height: 320px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  align-items: center;
+  gap: 24px;
+  background: #2f4b37;
+  color: #c5f3d7;
+}
+
+.application-received-panel h1 {
+  margin: 0 0 12px;
+  font-family: "Pirata One", serif;
+  font-size: 2.7rem;
+}
+
+.application-received-panel p {
+  line-height: 1.5;
+}
+
+.application-received-panel img {
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+}
+
+.back-home-link {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 9px 16px;
+  border-radius: 5px;
+  background: #c5f3d7;
+  color: #101510;
+}
+
+@media (max-width: 760px) {
+  .application-received-layout,
+  .application-received-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .application-received-layout .artist-brand img {
+    width: 120px;
+    height: 120px;
+  }
+}

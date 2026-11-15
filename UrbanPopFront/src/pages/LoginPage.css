@@ -1,0 +1,124 @@
+.login-layout {
+  margin: 28px auto;
+  min-height: 420px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 32px;
+  padding: 32px;
+  background: #050805;
+}
+
+.login-brand {
+  display: grid;
+  place-items: center;
+  min-height: 320px;
+  color: #c5f3d7;
+  text-align: center;
+}
+
+.login-brand h1 {
+  font-family: "Pirata One", serif;
+  font-size: 4rem;
+}
+
+.login-form {
+  padding: 28px;
+  display: grid;
+  gap: 14px;
+  background: #2f4b37;
+  color: #e2f7e8;
+}
+
+.login-form h2,
+.login-form p {
+  margin: 0;
+}
+
+.login-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  background: #c5f3d7;
+}
+
+.login-form button {
+  width: fit-content;
+  padding: 9px 18px;
+  border: 0;
+  border-radius: 5px;
+  background: #c5f3d7;
+  color: #101510;
+  cursor: pointer;
+}
+
+.login-form a {
+  color: #c5f3d7;
+}
+
+@media (max-width: 760px) {
+  .login-layout {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .login-brand {
+    min-height: 160px;
+  }
+}.login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 320px;
+  color: #c5f3d7;
+  text-align: center;
+}
+
+.login-logo {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+}
+
+.login-brand h1 {
+  margin: 0;
+  color: #c5f3d7;
+  font-family: "Pirata One", serif;
+  font-size: 3rem;
+}
+
+.login-form {
+  width: 100%;
+  text-align: center;
+}
+
+.login-form label {
+  text-align: left;
+}
+
+.login-form input {
+  width: 100%;
+  max-width: 320px;
+  height: 36px;
+  color: #101510;
+  caret-color: #101510;
+}
+.signup-success-link {
+  display: inline-block;
+  width: fit-content;
+  padding: 9px 18px;
+  border-radius: 5px;
+  background: #c5f3d7;
+  color: #101510 !important;
+}
+
+.signup-error {
+  color: #ffd2d2;
+}
