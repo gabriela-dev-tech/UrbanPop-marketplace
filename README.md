@@ -62,3 +62,9 @@ The Django backend has 7 automated tests. To run them, open a terminal in `Urban
 ## Demo information
 
 Checkout is for demonstration purposes and does not process real payments. The Django development secret key is for local use only.
+
+## Screenshots
+
+![UrbanPop storefront homepage](screenshots/storefront-home.png)
+
+![Meet the artists, About section, and footer](screenshots/storefront-home2.png)
