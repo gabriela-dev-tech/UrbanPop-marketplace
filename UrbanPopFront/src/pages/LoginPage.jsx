@@ -87,7 +87,9 @@ function LoginPage() {
               {isSubmitting ? "Logging in..." : "Log In"}
             </button>
 
-            <a href="#forgot-password">Forgot password?</a>
+            <p>
+              <Link to="/forgot-password">Forgot password?</Link>
+            </p>
 
             <p>
               New to Urban Pop? <Link to="/signup">Sign up</Link>

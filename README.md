@@ -9,7 +9,7 @@ The physical store dashboard is a separate UrbanPop project.
 - Product catalog connected to the Django backend
 - Product category filters
 - Shopping cart
-- Customer signup and login
+- Customer signup, login, and password reset (reset emails print to the Django terminal during local development)
 - Demo orders for guests and signed-in customers
 - Inventory updates when an order is placed
 - Artist applications reviewed in Django admin

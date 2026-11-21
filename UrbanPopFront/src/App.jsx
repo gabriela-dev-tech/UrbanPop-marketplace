@@ -9,6 +9,8 @@ import ArtistSection from "./components/ArtistSection";
 import Footer from "./components/Footer";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import ApplicationReceivedPage from "./pages/ApplicationReceivedPage";
 import ArtistApplicationPage from "./pages/ArtistApplicationPage";
 import CartPage from "./pages/CartPage";
@@ -64,8 +66,13 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/cart" element={<CartPage />} />
-        <Route path="/artist-application" element={<ArtistApplicationPage />} />
+        <Route
+          path="/artist-application"
+          element={<ArtistApplicationPage />}
+        />
         <Route
           path="/application-received"
           element={<ApplicationReceivedPage />}
