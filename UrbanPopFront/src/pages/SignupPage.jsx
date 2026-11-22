@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import urbanPopLogo from "../assets/logoUrbanPop.png";
+import { apiRequest } from "../services/api";
 import "./LoginPage.css";
 
 function SignupPage() {
@@ -29,11 +30,8 @@ function SignupPage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/auth/signup/", {
+      await apiRequest("/api/auth/signup/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           name,
           email,
@@ -42,21 +40,12 @@ function SignupPage() {
         }),
       });
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        const firstError = Object.values(result)
-          .flat()
-          .find((message) => typeof message === "string");
-
-        throw new Error(firstError || "Could not create your account.");
-      }
-
       setSubmitted(true);
     } catch (requestError) {
       setError(
-        requestError.message ||
-          "Could not connect to Urban Pop. Make sure Django is running.",
+        requestError.message === "Failed to fetch"
+          ? "Could not connect to Urban Pop. Make sure Django is running."
+          : requestError.message || "Could not create your account."
       );
     } finally {
       setIsSubmitting(false);
@@ -98,7 +87,7 @@ function SignupPage() {
 
             <label>
               Password
-              <input type="password" name="password" required minLength="8" />
+              <input type="password" name="password" required minLength={8} />
             </label>
 
             <label>
@@ -107,7 +96,7 @@ function SignupPage() {
                 type="password"
                 name="confirmPassword"
                 required
-                minLength="8"
+                minLength={8}
               />
             </label>
 

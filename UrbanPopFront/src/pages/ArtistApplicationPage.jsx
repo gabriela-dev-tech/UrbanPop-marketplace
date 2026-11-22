@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import artistImage from "../assets/Artists application.jpg";
 import urbanPopLogo from "../assets/logoUrbanPop.png";
+import { apiRequest } from "../services/api";
 import "./ArtistApplicationPage.css";
 
 function ArtistApplicationPage() {
@@ -28,22 +29,19 @@ function ArtistApplicationPage() {
     };
 
     try {
-      const response = await fetch(
-        "http://localhost:8000/api/artists/applications/",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(application),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("The application could not be submitted. Please check your information and try again.");
-      }
+      await apiRequest("/api/artists/applications/", {
+        method: "POST",
+        body: JSON.stringify(application),
+      });
 
       navigate("/application-received");
     } catch (submitError) {
-      setError(submitError.message);
+      setError(
+        submitError.message === "Failed to fetch"
+          ? "Could not connect to Urban Pop. Make sure Django is running."
+          : submitError.message ||
+              "The application could not be submitted. Please try again."
+      );
     } finally {
       setIsSending(false);
     }

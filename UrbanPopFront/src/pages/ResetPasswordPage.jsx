@@ -4,10 +4,8 @@ import { Link, useSearchParams } from "react-router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import urbanPopLogo from "../assets/logoUrbanPop.png";
+import { apiRequest } from "../services/api";
 import "./LoginPage.css";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 function ResetPasswordPage() {
   const [searchParams] = useSearchParams();
@@ -26,45 +24,24 @@ function ResetPasswordPage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/auth/password-reset/confirm/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            uid,
-            token,
-            new_password: newPassword,
-            confirm_password: confirmPassword,
-          }),
-        },
-      );
-
-      let result = {};
-      try {
-        result = await response.json();
-      } catch {
-        // Show a friendly message if the server didn't return JSON.
-      }
-
-      if (!response.ok) {
-        const detail =
-          result.detail ||
-          result.new_password ||
-          result.confirm_password ||
-          "Could not reset the password. The link may be invalid or expired.";
-
-        throw new Error(Array.isArray(detail) ? detail.join(" ") : detail);
-      }
+      await apiRequest("/api/auth/password-reset/confirm/", {
+        method: "POST",
+        body: JSON.stringify({
+          uid,
+          token,
+          new_password: newPassword,
+          confirm_password: confirmPassword,
+        }),
+      });
 
       localStorage.removeItem("urbanpop-token");
       setSubmitted(true);
     } catch (requestError) {
       setError(
-        requestError.message ||
-          "Could not connect. Make sure Django is running.",
+        requestError.message === "Failed to fetch"
+          ? "Could not connect. Make sure Django is running."
+          : requestError.message ||
+              "Could not reset the password. The link may be invalid or expired."
       );
     } finally {
       setIsSubmitting(false);

@@ -4,10 +4,8 @@ import { Link } from "react-router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import urbanPopLogo from "../assets/logoUrbanPop.png";
+import { apiRequest } from "../services/api";
 import "./LoginPage.css";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -21,38 +19,17 @@ function ForgotPasswordPage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/auth/password-reset/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        },
-      );
-
-      let result = {};
-      try {
-        result = await response.json();
-      } catch {
-        // Show the friendly error below if the server didn't return JSON.
-      }
-
-      if (!response.ok) {
-        const emailError = result.email;
-        const message = Array.isArray(emailError)
-          ? emailError.join(" ")
-          : emailError || result.detail || "Could not request a reset link.";
-
-        throw new Error(message);
-      }
+      await apiRequest("/api/auth/password-reset/", {
+        method: "POST",
+        body: JSON.stringify({ email }),
+      });
 
       setSubmitted(true);
     } catch (requestError) {
       setError(
-        requestError.message ||
-          "Could not connect. Make sure Django is running.",
+        requestError.message === "Failed to fetch"
+          ? "Could not connect. Make sure Django is running."
+          : requestError.message || "Could not request a reset link."
       );
     } finally {
       setIsSubmitting(false);

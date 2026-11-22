@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../context/useCart";
+import { apiRequest } from "../services/api";
 import "./ProductSection.css";
 
 function ProductSection({ selectedCategory = "All" }) {
@@ -11,13 +12,7 @@ function ProductSection({ selectedCategory = "All" }) {
   useEffect(() => {
     async function loadProducts() {
       try {
-        const response = await fetch("http://localhost:8000/api/products/");
-
-        if (!response.ok) {
-          throw new Error("Could not load products.");
-        }
-
-        const data = await response.json();
+        const data = await apiRequest("/api/products/");
 
         setProducts(
           data.map((product) => ({
@@ -25,8 +20,12 @@ function ProductSection({ selectedCategory = "All" }) {
             price: Number(product.price),
           }))
         );
-      } catch {
-        setError("Could not load products. Make sure Django is running.");
+      } catch (loadError) {
+        setError(
+          loadError.message === "Failed to fetch"
+            ? "Could not load products. Make sure Django is running."
+            : loadError.message || "Could not load products."
+        );
       } finally {
         setLoading(false);
       }
@@ -60,8 +59,10 @@ function ProductSection({ selectedCategory = "All" }) {
               {product.image && (
                 <img src={product.image} alt={product.name} />
               )}
+
               <h3>{product.name}</h3>
               <p>${product.price.toFixed(2)}</p>
+
               <button
                 className="add-to-cart"
                 type="button"

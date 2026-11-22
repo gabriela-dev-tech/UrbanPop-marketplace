@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { apiRequest } from "../services/api";
 import "./ArtistSection.css";
 
 function ArtistSection() {
@@ -9,18 +10,14 @@ function ArtistSection() {
   useEffect(() => {
     async function loadArtists() {
       try {
-        const response = await fetch(
-          "http://localhost:8000/api/artists/approved/"
-        );
-
-        if (!response.ok) {
-          throw new Error("Could not load artists.");
-        }
-
-        const data = await response.json();
+        const data = await apiRequest("/api/artists/approved/");
         setArtists(data);
-      } catch {
-        setError("Could not load artists. Make sure Django is running.");
+      } catch (loadError) {
+        setError(
+          loadError.message === "Failed to fetch"
+            ? "Could not load artists. Make sure Django is running."
+            : loadError.message || "Could not load artists."
+        );
       } finally {
         setLoading(false);
       }
@@ -36,7 +33,6 @@ function ArtistSection() {
 
       <div className="artist-list">
         {loading && <p>Loading artists…</p>}
-
         {error && <p role="alert">{error}</p>}
 
         {!loading && !error && artists.length === 0 && (

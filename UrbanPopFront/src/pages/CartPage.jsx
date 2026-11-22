@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useCart } from "../context/useCart";
+import { apiRequest } from "../services/api";
 import "./CartPage.css";
 
 function formatPrice(amount) {
@@ -41,37 +42,24 @@ function CartPage() {
 
     try {
       const token = localStorage.getItem("urbanpop-token");
-      const headers = {
-        "Content-Type": "application/json",
-      };
+      const headers = token
+        ? { Authorization: `Token ${token}` }
+        : {};
 
-      if (token) {
-        headers.Authorization = `Token ${token}`;
-      }
-
-      const response = await fetch("http://localhost:8000/api/orders/", {
+      const data = await apiRequest("/api/orders/", {
         method: "POST",
         headers,
         body: JSON.stringify(order),
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        const detail = data.items || data.detail;
-        throw new Error(
-          typeof detail === "string"
-            ? detail
-            : "The order could not be placed. Check the products and try again."
-        );
-      }
-
       setCompletedOrder(data);
       clearCart();
     } catch (checkoutError) {
       setError(
-        checkoutError.message ||
-          "Could not reach Django. Make sure the backend server is running."
+        checkoutError.message === "Failed to fetch"
+          ? "Could not reach Django. Make sure the backend server is running."
+          : checkoutError.message ||
+              "The order could not be placed. Check the products and try again."
       );
     } finally {
       setIsSubmitting(false);

@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import urbanPopLogo from "../assets/logoUrbanPop.png";
+import { apiRequest } from "../services/api";
 import "./LoginPage.css";
 
 function LoginPage() {
@@ -19,29 +20,21 @@ function LoginPage() {
     const formData = new FormData(event.currentTarget);
 
     try {
-      const response = await fetch("http://localhost:8000/api/auth/login/", {
+      const result = await apiRequest("/api/auth/login/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           email: formData.get("email"),
           password: formData.get("password"),
         }),
       });
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.detail || "Could not log in.");
-      }
-
       localStorage.setItem("urbanpop-token", result.token);
       setLoggedIn(true);
     } catch (requestError) {
       setError(
-        requestError.message ||
-          "Could not connect to Urban Pop. Make sure Django is running.",
+        requestError.message === "Failed to fetch"
+          ? "Could not connect to Urban Pop. Make sure Django is running."
+          : requestError.message || "Could not log in."
       );
     } finally {
       setIsSubmitting(false);
